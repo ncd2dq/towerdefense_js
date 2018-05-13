@@ -50,4 +50,36 @@ function Vector(x, y){
         
         return difference;
     }
+    
+    this.limit = function(limit_magnitude){
+        //If the vector has a larger magnitude than the limit, set the vector's magnitude to the limit
+        let cur_magnitude = this.mag();
+        if(cur_magnitude > limit_magnitude){
+            let new_vector = this.normalize();
+            new_vector = new_vector.mult(magnitude);
+            
+            return new_vector;
+        } else {
+            return this;
+        }
+    }
+    
+    this.normalize = function(){
+        let magnitude = this.mag();
+        let new_x = this.x / magnitude;
+        let new_y = this.y / magnitude;
+        
+        return new Vector(new_x, new_y);
+    }
+    
+    this.limit = function(mag_limit){
+        let mag = this.mag();
+        if(mag > mag_limit){
+            let new_vector = this.normalize();
+            new_vector = new_vector.mult(mag_limit);
+            return new_vector;
+        } else {
+            return this;
+        }
+    }
 }

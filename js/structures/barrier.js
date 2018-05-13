@@ -1,0 +1,1 @@
+//Allow the user to place obstacles on the map that attracts birds and that they must destroy
