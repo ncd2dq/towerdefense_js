@@ -1,9 +1,16 @@
 let Canvas_Width = 1600;
 let Canvas_Height = 800;
 
+//final variables
+let bullets = [];
+//end final
+
 let p = new Flock();
 let obstacles = [];
 
+let m =  [ {location:new Vector(0,0), radius: 10} ];
+//To avoid bullets, you need to use the avoidForce method and give it avoidForce(unit that's avoiding something, the thing that it will avoid)
+let t = new Tower(Canvas_Width, Canvas_Height);
 
 function setup() {
     createCanvas(Canvas_Width, Canvas_Height);
@@ -12,24 +19,18 @@ function setup() {
 
 function draw() {
     background(100, 100, 125);
-    p.run();
-    
     if(mouseX){
-        let m_vector = new Vector(mouseX, mouseY);
-        
-        let steering = steeringForce(p, m_vector);
-        p.applyForce(steering);
-        
-        if(obstacles.length != 0){
-            for(let i = 0; i < obstacles.length; i++){
-                let avoid = avoidForce(p, obstacles[0]);
-                avoid = avoid.mult(0.25);
-                p.applyForce(avoid);
-                ellipse(obstacles[i].location.x, obstacles[i].location.y, 10, 10);                        
-            }
+        m = [{location:new Vector(mouseX, mouseY), radius:10}];
+    }
+    t.run(m[0].location);
+    p.run(m, obstacles);
+    
+    if(bullets.length != 0){
+        for(let i = 0; i < bullets.length; i++){
+            bullets[i].run();
         }
     }
-    
+    //frameRate(15);
     
 }
 
@@ -68,7 +69,7 @@ function keyReleased(){
 //}
 
 function mousePressed(){
-    obstacles.push({location: new Vector(mouseX, mouseY)});
+    t.fire(new Vector(mouseX, mouseY),bullets);
 }
 
 function mouseReleased(){

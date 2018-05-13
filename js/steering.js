@@ -17,7 +17,9 @@ function steeringForce(unit_class, target_vector){
     return steering
 }
 
-function avoidForce(unit_class, avoid_this_class, angle=30){
+function avoidForce(unit_class, avoid_this_class, angle=30, avoidForce=1000){
+    //Higher avoidForce = more important the objects are
+    //angle is the angle by which it's going to try and avoid the force by
     //x' = x*Math.cos(theta) - y*Math.sin(theta)
     //y' = y*Math.cos(theta) + x*Math.sin(theta)
     let avoid_x = avoid_this_class.location.x;
@@ -27,9 +29,11 @@ function avoidForce(unit_class, avoid_this_class, angle=30){
     let class_y = unit_class.location.y;
     
     let pointer = new Vector(avoid_x - class_x, avoid_y - class_y);
+    let dist2 = Math.pow(pointer.mag(), 2);
     pointer = pointer.normalize();
     
     avoid = rotate_this(pointer, angle);
+    avoid = avoid.mult(1 / dist2).mult(avoidForce);
     
     return avoid;
 }

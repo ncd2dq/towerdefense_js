@@ -51,6 +51,19 @@ function Vector(x, y){
         return difference;
     }
     
+    this.dot = function(other){
+        let x = this.x * other.x;
+        let y = this.y * other.y;
+        return x + y;
+    }
+    
+    this.distance = function(other){
+        let operand = Math.pow((other.x - this.x), 2) + Math.pow((other.y - this.y), 2);
+        operand = sqrt(operand);
+        
+        return operand;
+    }
+    
     this.limit = function(limit_magnitude){
         //If the vector has a larger magnitude than the limit, set the vector's magnitude to the limit
         let cur_magnitude = this.mag();
