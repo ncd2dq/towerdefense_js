@@ -9,6 +9,9 @@ class Game{
         this.instruction4 = "Aim with the mouse cursor";
     }
     
+    show_gun_cool_downs(){
+        
+    }
     
     
     show(){

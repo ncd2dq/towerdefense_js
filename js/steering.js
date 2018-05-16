@@ -1,4 +1,4 @@
-const convFactor = 180 / Math.PI;
+const convFactor = Math.PI / 180;
 
 function rotate_this(vect, theta){
     //x' = x*Math.cos(theta) - y*Math.sin(theta)

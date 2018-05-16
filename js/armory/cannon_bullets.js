@@ -4,9 +4,11 @@ class CannonBullets{
         this.location = weapon_tip;
         this.velocity = weapon_facing_vec;
         this.speed = 5;
+        this.crashed = false;
     }
     
     show(){
+        fill(0,0,0);
         ellipse(this.location.x, this.location.y, this.radius * 2, this.radius * 2); //drawn from center
     }
     

@@ -7,7 +7,9 @@ class Tower{
         this.radius = 75;
         this.location = new Vector(this.radius / 3, canv_y - this.radius - (this.radius / 3));
         this.weapons = this.create_weapons();
-        this.current_weapon = this.weapons[0];
+        this.weapon_index_max = 1; //needs to be maually updated if more weapons are built
+        this.weapon_index = 0;
+        this.current_weapon = this.weapons[this.weapon_index];
     }
     
     show(){
@@ -17,10 +19,10 @@ class Tower{
     
     create_weapons(){
         let c = new Cannon(this.location, this.radius);
-        //let ft = new FlameThrower();
+        let ft = new FlameThrower(this.location, this.radius);
         //let mg = new MachineGun();
         
-        return [c];
+        return [c, ft];
     }
     
     fire(mouse_click_vec, bullets){
@@ -28,7 +30,14 @@ class Tower{
     }
     
     change_weapon(){
-        
+        //Change weapon when you hit space bar
+        this.weapon_index++;
+        if(this.weapon_index <= this.weapon_index_max){
+            this.current_weapon = this.weapons[this.weapon_index];
+        } else {
+            this.weapon_index = 0;
+            this.current_weapon = this.weapons[this.weapon_index];
+        }
     }
     
     run(mouse_vec, mouse_click_vec){

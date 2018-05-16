@@ -2,11 +2,13 @@ class Cannon{
     constructor(t_loc, t_radi){
         this.radius = t_radi * 4 / 5;
         this.location = new Vector(t_loc.x + t_radi / 2, t_loc.y + t_radi / 2);
-        this.cool_down_standard = 10;
-        this.cool_down = 0;
-        this.ready = true;
         this.facing = new Vector(0.5, -0.5);
         this.cannon_length = 50;
+        
+        this.frame_count = 0;
+        this.cool_down_standard = 3;
+        this.cool_down_time = 0;
+        this.on_cool_down = false;
     }
     
     cannon_rotate(mouse_vec){
@@ -18,9 +20,13 @@ class Cannon{
     }
     
     fire(mouse_click_vec, bullets){
-        let dir = this.facing.sub(this.location).normalize();
-        let new_bullet = new CannonBullets(this.facing, dir);
-        bullets.push(new_bullet);
+        if(!this.on_cool_down){
+            this.on_cool_down = true;
+            this.cool_down_time = this.cool_down_standard;
+            let dir = this.facing.sub(this.location).normalize();
+            let new_bullet = new CannonBullets(this.facing, dir);
+            bullets.push(new_bullet);
+        }
     }
     
     
@@ -37,9 +43,23 @@ class Cannon{
         strokeWeight(1);
     }
     
+    cool_down(){
+        this.frame_count++;
+        if(this.cool_down_time != 0){
+            if(this.frame_count % FPS == 0){
+                this.cool_down_time--;
+            }
+        } else {
+            this.on_cool_down = false;
+            this.frame_count = 0;
+        }
+        
+    }
+    
     run(mouse_vec, mouse_click_vec, bullets){
         this.show();
         this.cannon_rotate(mouse_vec);
+        this.cool_down();
     }
     
     

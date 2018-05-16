@@ -1,5 +1,6 @@
-let Canvas_Width = 1600;
+let Canvas_Width = 1200;
 let Canvas_Height = 800;
+let FPS = 60;
 
 //final variables
 let bullets = [];
@@ -25,13 +26,24 @@ function draw() {
     t.run(m[0].location);
     p.run(m, obstacles);
     
+    //handle_bullets
     if(bullets.length != 0){
         for(let i = 0; i < bullets.length; i++){
             bullets[i].run();
         }
     }
-    //frameRate(15);
+    bullets_off_screen(bullets);
+    frameRate(FPS);
     
+}
+
+function bullets_off_screen(bullet_list){
+    for(let i = bullet_list.length - 1; i >= 0; i--){
+        if(bullet_list[i].location.x >= Canvas_Width || bullet_list[i].location.x <= 0
+          || bullet_list[i].location.y <= 0 || bullet_list[i].location.y >= Canvas_Height){
+            bullet_list.splice(i, 1);
+        }
+    }
 }
 
 
@@ -46,6 +58,7 @@ function keyPressed(){
     } else if (keyCode === UP_ARROW){
         
     } else if (keyCode == 32){ //the spacebar
+        t.change_weapon();
 
     } else if (keyCode == 80){ //the 'p' key
 
