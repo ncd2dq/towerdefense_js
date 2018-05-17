@@ -42,10 +42,6 @@ class FlameThrower{
     }
     
     fire(mouse_click_vec, bullets){
-        if(this.fired == this.fired_max && !this.on_cool_down){
-            this.on_cool_down = true;
-            this.cool_down_time = this.cool_down_standard;
-        }
         if(!this.on_cool_down){
             this.fired++;
             let new_loc = this.location.add(new Vector(0, this.height / 2))
@@ -55,6 +51,13 @@ class FlameThrower{
                 bullets.push(new_bullet);
             }
         }
+    }
+    
+    count_fire(){
+        if(this.fired == this.fired_max && !this.on_cool_down){
+            this.on_cool_down = true;
+            this.cool_down_time = this.cool_down_standard;
+        }       
     }
     
     
@@ -79,10 +82,10 @@ class FlameThrower{
         strokeWeight(1);
     }
     
-    run(mouse_vec, mouse_click_vec, bullets){
+    run(mouse_vec, bullets){
         this.show();
         this.flame_thrower_rotate(mouse_vec);
-        this.cool_down();
+        this.count_fire();
     }
     
 }

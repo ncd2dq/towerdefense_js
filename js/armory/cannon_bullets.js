@@ -1,10 +1,11 @@
 class CannonBullets{
     constructor(weapon_tip, weapon_facing_vec){
-        this.radius = 5;
+        this.radius = 12;
         this.location = weapon_tip;
         this.velocity = weapon_facing_vec;
-        this.speed = 5;
+        this.speed = 8;
         this.crashed = false;
+        this.dmg = 5;
     }
     
     show(){

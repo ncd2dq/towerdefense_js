@@ -7,7 +7,7 @@ class Tower{
         this.radius = 75;
         this.location = new Vector(this.radius / 3, canv_y - this.radius - (this.radius / 3));
         this.weapons = this.create_weapons();
-        this.weapon_index_max = 1; //needs to be maually updated if more weapons are built
+        this.weapon_index_max = 2; //needs to be maually updated if more weapons are built
         this.weapon_index = 0;
         this.current_weapon = this.weapons[this.weapon_index];
     }
@@ -20,9 +20,9 @@ class Tower{
     create_weapons(){
         let c = new Cannon(this.location, this.radius);
         let ft = new FlameThrower(this.location, this.radius);
-        //let mg = new MachineGun();
+        let mg = new MachineGun(this.location, this.radius);
         
-        return [c, ft];
+        return [c, ft, mg];
     }
     
     fire(mouse_click_vec, bullets){
@@ -40,9 +40,12 @@ class Tower{
         }
     }
     
-    run(mouse_vec, mouse_click_vec){
+    run(mouse_vec){
         this.show();
-        this.current_weapon.run(mouse_vec, mouse_click_vec);
+        this.current_weapon.run(mouse_vec);
+        
+        this.weapons[0].cool_down();
+        this.weapons[1].cool_down();
     }
     
 }

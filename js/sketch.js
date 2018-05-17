@@ -2,6 +2,8 @@ let Canvas_Width = 1200;
 let Canvas_Height = 800;
 let FPS = 60;
 
+let g = new Game();
+
 //final variables
 let bullets = [];
 //end final
@@ -32,15 +34,17 @@ function draw() {
             bullets[i].run();
         }
     }
-    bullets_off_screen(bullets);
+    bullets_removal(bullets);
+    g.run(t.weapons);
     frameRate(FPS);
     
 }
 
-function bullets_off_screen(bullet_list){
+function bullets_removal(bullet_list){
+    //Removes if offscreen and if crashed
     for(let i = bullet_list.length - 1; i >= 0; i--){
         if(bullet_list[i].location.x >= Canvas_Width || bullet_list[i].location.x <= 0
-          || bullet_list[i].location.y <= 0 || bullet_list[i].location.y >= Canvas_Height){
+          || bullet_list[i].location.y <= 0 || bullet_list[i].location.y >= Canvas_Height || bullet_list[i].crashed){
             bullet_list.splice(i, 1);
         }
     }

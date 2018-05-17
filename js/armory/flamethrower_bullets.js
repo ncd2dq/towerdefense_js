@@ -8,18 +8,26 @@ class FlameThrowerBullets{
         this.angle_offset = int(random(-65, 65));
         this.velocity = rotate_this(this.velocity, this.angle_offset);
         this.crashed = false;
-        this.gravity = new Vector(0.005, 0.03);
+        this.lifespan = 255;
+        this.evap_rate = 4;
+        
+        this.dmg = 1;
 
     }
     
     show(){
-        fill(this.color, 0, 0);
+        strokeWeight(0);
+        fill(this.color, 0, 0, this.lifespan);
         ellipse(this.location.x, this.location.y, this.radius * 2, this.radius * 2); //drawn from 
+        strokeWeight(1);
     }
     
     update(){
-        this.velocity = this.velocity.add(this.gravity);
+        this.lifespan -= this.evap_rate;
         this.location = this.location.add(this.velocity.mult(this.speed));
+        if(this.lifespan <= 0){
+            this.crashed = true; 
+        }
     }
     
     run(){

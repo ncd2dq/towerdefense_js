@@ -56,10 +56,9 @@ class Cannon{
         
     }
     
-    run(mouse_vec, mouse_click_vec, bullets){
+    run(mouse_vec, bullets){
         this.show();
         this.cannon_rotate(mouse_vec);
-        this.cool_down();
     }
     
     
