@@ -1,0 +1,16 @@
+Bullets:
+this.radius - scalar
+this.speed - scalar
+this.dmg - scalar
+this.location - vector
+this.velocity - vector
+this.crashed - boolean
+
+Enemies:
+--Can be hit, so are passed the bullets list
+----bullet.crashed = true
+----Enemy.health - bullet.dmg
+
+--Dodge bullets, so need to use the avoidForce() function
+----pass it 'this' and 'bullet' (as classes) and it will return
+----aversion vector
