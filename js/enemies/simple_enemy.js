@@ -2,12 +2,12 @@ class SimpleEnemy{
     constructor(location, target_vector){
         this.location = location;
         this.speed = 5;
-        this.velocity = target_vector.sub(this.location).normalize();
-        this.velocity = this.velocity.mult(this.speed)
-        this.radius = 5
+        this.velocity = target_vector.sub(this.location);
+        this.radius = 5;
     }
     
     update(){
+        this.velocity = this.velocity.normalize().mult(this.speed);
         this.location = this.location.add(this.velocity);
     }
     

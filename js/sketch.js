@@ -1,3 +1,7 @@
+function setup() {
+    createCanvas(Canvas_Width, Canvas_Height);
+}
+
 let Canvas_Width = 1200;
 let Canvas_Height = 650;
 let FPS = 60;
@@ -13,12 +17,7 @@ let m =  [ {location:new Vector(Canvas_Width / 2, Canvas_Height / 2), radius: 10
 //Testing variables
 let p = new Flock();
 let obstacles = [];
-//let f_enemies = [new SimpleEnemy(new Vector(500,500), new Vector(0, Canvas_Height))];
-
-
-function setup() {
-    createCanvas(Canvas_Width, Canvas_Height);
-}
+let f_enemies = [new SimpleEnemy(new Vector(500, 500), new Vector(0, Canvas_Height))];
 
 function draw() {
     background(100, 100, 125);
@@ -44,12 +43,13 @@ function draw() {
     g.run(t.weapons);
     
     frameRate(FPS);
-    
     //Testing code
     p.run(m, obstacles);
-    //for(let i = 0; i < f_enemies.length; i++){
-    //    f_enemies[i].run();
-    //}
+    
+    for(let i = 0; i < f_enemies.length; i++){
+        f_enemies[i].run();
+    }
+
     
     //Allow for initial instruction screen / pausing the game
     if(g.paused){
