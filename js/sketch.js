@@ -9,12 +9,11 @@ let t = new Tower(Canvas_Width, Canvas_Height);
 let m =  [ {location:new Vector(Canvas_Width / 2, Canvas_Height / 2), radius: 10} ]; //Just incase the mouse ins't on screen yet, weapons will have a default rotation
 //end final
 
-//To avoid bullets, you need to use the avoidForce method and give it avoidForce(unit that's avoiding something, the thing that it will avoid)
-
 
 //Testing variables
 let p = new Flock();
 let obstacles = [];
+//let f_enemies = [new SimpleEnemy(new Vector(500,500), new Vector(0, Canvas_Height))];
 
 
 function setup() {
@@ -48,6 +47,9 @@ function draw() {
     
     //Testing code
     p.run(m, obstacles);
+    //for(let i = 0; i < f_enemies.length; i++){
+    //    f_enemies[i].run();
+    //}
     
     //Allow for initial instruction screen / pausing the game
     if(g.paused){

@@ -1,3 +1,5 @@
+//To avoid bullets, you need to use the avoidForce method and give it avoidForce(unit that's avoiding something, the thing that it will avoid)
+
 class Flock{
     constructor(){
         this.location = new Vector(100, 100);
