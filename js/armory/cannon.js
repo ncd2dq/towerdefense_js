@@ -2,8 +2,8 @@ class Cannon{
     constructor(t_loc, t_radi){
         this.radius = t_radi * 4 / 5;
         this.location = new Vector(t_loc.x + t_radi / 2, t_loc.y + t_radi / 2);
-        this.facing = new Vector(0.5, -0.5);
         this.cannon_length = 50;
+        this.facing = new Vector(this.location.x + this.cannon_length * 2 / 3, this.location.y - this.cannon_length * 2 / 3);
         
         this.frame_count = 0;
         this.cool_down_standard = 3;

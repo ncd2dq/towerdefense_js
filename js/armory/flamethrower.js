@@ -21,7 +21,6 @@ class FlameThrower{
         if(this.cool_down_time > 1){
             if(this.frame_count % FPS == 0){
                 this.cool_down_time--;
-                console.log(this.cool_down_time);
             }
         } else if(this.cool_down_time == 1 && this.frame_count % FPS == 0){
             this.cool_down_time = 0;

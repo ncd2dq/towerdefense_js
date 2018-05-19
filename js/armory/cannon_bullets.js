@@ -3,9 +3,10 @@ class CannonBullets{
         this.radius = 12;
         this.location = weapon_tip;
         this.velocity = weapon_facing_vec;
-        this.speed = 8;
+        this.speed = 15;
         this.crashed = false;
-        this.dmg = 5;
+        
+        this.dmg = 8;
     }
     
     show(){

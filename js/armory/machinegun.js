@@ -9,7 +9,11 @@ class MachineGun{
         this.facing = new Vector(1, -1);
         this.gun_1_location = new Vector(this.location_center.x, this.location_center.y - this.base_radi / 2);
         this.gun_2_location = new Vector(this.location_center.x + this.base_radi / 2, this.location_center.y);
+        this.tip_1 = this.gun_1_location.add(this.facing.mult(this.barrel_length));
+        this.tip_2 = this.gun_2_location.add(this.facing.mult(this.barrel_length));
         this.barrel_length = 35;
+        this.tip_offset = 9 / 10;
+        this.cool_down_time = 0;
         
     }
     
@@ -18,7 +22,16 @@ class MachineGun{
         
     }
     
-    fire(){
+    fire(mouse_click_vec, bullets){
+        if(this.gun_1_ready){
+            this.gun_1_ready = false;
+            let bullet = new MachineGunBullets(this.tip_1, this.facing);
+            bullets.push(bullet);
+        } else {
+            this.gun_1_ready = true;
+            let bullet = new MachineGunBullets(this.tip_2, this.facing);   
+            bullets.push(bullet);
+        }
         
         
     }
@@ -36,7 +49,6 @@ class MachineGun{
         dot = dot / (mouse_ref.mag() * ref_vec.mag());
         
         this.gun_angle = Math.acos(dot) * (1 / convFactor);
-        console.log(this.gun_angle);
         
         let face = mouse_vec.sub(this.location_center).normalize();
         this.facing = face;
@@ -61,23 +73,30 @@ class MachineGun{
         if(this.gun_1_ready){
             //Long barrel
             let tip = this.gun_1_location.add(this.facing.mult(this.barrel_length));
+            this.tip_1 = tip;
             line(this.gun_1_location.x, this.gun_1_location.y, tip.x, tip.y);
         } else {
+            let tip = this.gun_1_location.add(this.facing.mult(this.barrel_length * this.tip_offset));
+            this.tip_1 = tip;
+            line(this.gun_1_location.x, this.gun_1_location.y, tip.x, tip.y);
             
         }
         
         //Barrel 2
         if(!this.gun_1_ready){
             //Short barrel
-            
-        } else {
             let tip_2 = this.gun_2_location.add(this.facing.mult(this.barrel_length));
+            this.tip_2 = tip_2;
+            line(this.gun_2_location.x, this.gun_2_location.y, tip_2.x, tip_2.y); 
+        } else {
+            let tip_2 = this.gun_2_location.add(this.facing.mult(this.barrel_length * this.tip_offset));
+            this.tip_2 = tip_2;
             line(this.gun_2_location.x, this.gun_2_location.y, tip_2.x, tip_2.y);
         }
         strokeWeight(1);
     }
     
-    run(mouse_vec){
+    run(mouse_vec, bullets){
         this.show();
         this.machine_gun_rotate(mouse_vec);
         

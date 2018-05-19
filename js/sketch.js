@@ -1,45 +1,63 @@
 let Canvas_Width = 1200;
-let Canvas_Height = 800;
+let Canvas_Height = 650;
 let FPS = 60;
 
-let g = new Game();
-
 //final variables
+let g = new Game(); //Handles level up, score, game data, allow pausing, ect.
 let bullets = [];
+let t = new Tower(Canvas_Width, Canvas_Height);
+let m =  [ {location:new Vector(Canvas_Width / 2, Canvas_Height / 2), radius: 10} ]; //Just incase the mouse ins't on screen yet, weapons will have a default rotation
 //end final
 
+//To avoid bullets, you need to use the avoidForce method and give it avoidForce(unit that's avoiding something, the thing that it will avoid)
+
+
+//Testing variables
 let p = new Flock();
 let obstacles = [];
 
-let m =  [ {location:new Vector(0,0), radius: 10} ];
-//To avoid bullets, you need to use the avoidForce method and give it avoidForce(unit that's avoiding something, the thing that it will avoid)
-let t = new Tower(Canvas_Width, Canvas_Height);
 
 function setup() {
     createCanvas(Canvas_Width, Canvas_Height);
 }
 
-
 function draw() {
     background(100, 100, 125);
+    
+    //Have the mouse location always being recorded so all guns can rotate properly
     if(mouseX){
         m = [{location:new Vector(mouseX, mouseY), radius:10}];
     }
-    t.run(m[0].location);
-    p.run(m, obstacles);
     
-    //handle_bullets
+    //Run the Tower
+    t.run(m[0].location);
+    
+    //Draw the bullets to screen
     if(bullets.length != 0){
         for(let i = 0; i < bullets.length; i++){
             bullets[i].run();
         }
     }
+    //Remove offscreen or crashed bullets
     bullets_removal(bullets);
+    
+    //Show Cooldowns + game score
     g.run(t.weapons);
+    
     frameRate(FPS);
+    
+    //Testing code
+    p.run(m, obstacles);
+    
+    //Allow for initial instruction screen / pausing the game
+    if(g.paused){
+        g.pause();
+    }
     
 }
 
+
+// HELPER FUNCTIONS ---
 function bullets_removal(bullet_list){
     //Removes if offscreen and if crashed
     for(let i = bullet_list.length - 1; i >= 0; i--){
@@ -51,7 +69,8 @@ function bullets_removal(bullet_list){
 }
 
 
-// User input
+
+// USER INPUT FUNCTIONS ---
 function keyPressed(){
     if (keyCode === LEFT_ARROW){
 
@@ -65,7 +84,12 @@ function keyPressed(){
         t.change_weapon();
 
     } else if (keyCode == 80){ //the 'p' key
-
+        if(g.paused){
+            g.paused = false;
+        } else {
+            g.paused = true;
+        }
+        g.pause();
     }
 }
 
@@ -81,14 +105,17 @@ function keyReleased(){
     }
 }
 
-//function mouseDragged(){
-//    console.log(mouseX, mouseY);
-//}
-
 function mousePressed(){
-    t.fire(new Vector(mouseX, mouseY),bullets);
+    t.fire(new Vector(mouseX, mouseY), bullets);
 }
 
 function mouseReleased(){
+    t.fire(new Vector(mouseX, mouseY), bullets);
     
 }
+
+
+/*function mouseDragged(){
+    console.log(mouseX, mouseY);
+    t.fire(new Vector(mouseX, mouseY), bullets);
+}*/

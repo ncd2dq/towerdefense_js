@@ -11,7 +11,7 @@ class FlameThrowerBullets{
         this.lifespan = 255;
         this.evap_rate = 4;
         
-        this.dmg = 1;
+        this.dmg = 2;
 
     }
     
