@@ -10,11 +10,14 @@ class Tower{
         this.weapon_index_max = 2; //needs to be maually updated if more weapons are built
         this.weapon_index = 0;
         this.current_weapon = this.weapons[this.weapon_index];
+        this.health = 100;
+        this.max_health = 100;
     }
     
     show(){
         fill(255, 0, 0);
         rect(this.location.x, this.location.y, this.radius, this.radius);
+        
     }
     
     create_weapons(){

@@ -7,6 +7,8 @@ class Game{
         this.instruction2 = "--Press 'SpaceBar' to change tower weapon";
         this.instruction3 = "--Left-Click to fire or place a structure";
         this.instruction4 = "--Aim with the mouse cursor";
+        this.game_over_text = "Your tower was destroyed!";
+        this.health_bar_scale = 5;
         
         this.paused = true;
         
@@ -23,9 +25,11 @@ class Game{
     }
     
     
-    show(){
-        //display level
-        //display score
+    show_health_bar(){
+        fill(0, 0, 0);
+        rect(Canvas_Width / 3, 10, t.max_health * this.health_bar_scale, 10);
+        fill(0, 255, 0);
+        rect(Canvas_Width / 3, 10, t.health * this.health_bar_scale, 10);
     }
     
     addPoint(){
@@ -37,6 +41,13 @@ class Game{
     }
     
     gameOver(){
+        if(t.health <= 0){
+            background(0, 0, 0, 100);
+            textSize(this.size);
+            fill(255, 0, 0);
+            text(this.game_over_text, Canvas_Width / 3, Canvas_Height / 2);  
+            noLoop();
+        }
         
     }
     
@@ -51,6 +62,8 @@ class Game{
     
     run(weapons_list){
         this.show_gun_cool_downs(weapons_list);
+        this.show_health_bar();
+        this.gameOver();
     }
     
     pause(){

@@ -11,16 +11,24 @@ let g = new Game(); //Handles level up, score, game data, allow pausing, ect.
 let bullets = [];
 let t = new Tower(Canvas_Width, Canvas_Height);
 let m =  [ {location:new Vector(Canvas_Width / 2, Canvas_Height / 2), radius: 10} ]; //Just incase the mouse ins't on screen yet, weapons will have a default rotation
+let Spawn_Radius = Canvas_Height / 2;
+let initial_spwn = true;
 //end final
 
 
 //Testing variables
+let f_enemies = []
 let p = new Flock();
 let obstacles = [];
-let f_enemies = [new SimpleEnemy(new Vector(500, 500), new Vector(0, Canvas_Height))];
 
 function draw() {
     background(100, 100, 125);
+    if (initial_spwn){
+        for(let i = 0; i < 25; i++){
+            f_enemies.push(new SimpleEnemy(t));
+        }
+        initial_spwn = false;
+    }
     
     //Have the mouse location always being recorded so all guns can rotate properly
     if(mouseX){
@@ -38,6 +46,9 @@ function draw() {
     }
     //Remove offscreen or crashed bullets
     bullets_removal(bullets);
+    
+    //Remove enemies that hit the tower
+    simple_enemy_crash_tower(f_enemies);
     
     //Show Cooldowns + game score
     g.run(t.weapons);
@@ -70,6 +81,14 @@ function bullets_removal(bullet_list){
     }
 }
 
+function simple_enemy_crash_tower(s_enemy_list){
+    for(let i = s_enemy_list.length - 1; i >= 0; i--){
+        if(s_enemy_list[i].crashed){
+            t.health -= s_enemy_list[i].dmg;
+            s_enemy_list.splice(i, 1);
+        }
+    }
+}
 
 
 // USER INPUT FUNCTIONS ---
