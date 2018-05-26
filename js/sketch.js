@@ -13,6 +13,7 @@ let t = new Tower(Canvas_Width, Canvas_Height);
 let m =  [ {location:new Vector(Canvas_Width / 2, Canvas_Height / 2), radius: 10} ]; //Just incase the mouse ins't on screen yet, weapons will have a default rotation
 let Spawn_Radius = Canvas_Height / 2;
 let initial_spwn = true;
+let wave = new WaveController();
 //end final
 
 
@@ -38,20 +39,23 @@ function draw() {
     //Run the Tower
     t.run(m[0].location);
     
-    //Draw the bullets to screen
+    //Draw the bullets to screen + check if hit enemies
     if(bullets.length != 0){
         for(let i = 0; i < bullets.length; i++){
-            bullets[i].run();
+            bullets[i].run(f_enemies);
         }
     }
     //Remove offscreen or crashed bullets
     bullets_removal(bullets);
     
-    //Remove enemies that hit the tower
-    simple_enemy_crash_tower(f_enemies);
+    //Remove enemies that hit the tower or that have health = 0 
+    enemies_crashed_or_killed(f_enemies);
     
     //Show Cooldowns + game score
     g.run(t.weapons);
+    
+    //Controll enemy spawning
+    wave.run(f_enemies);
     
     frameRate(FPS);
     //Testing code
@@ -60,7 +64,8 @@ function draw() {
     for(let i = 0; i < f_enemies.length; i++){
         f_enemies[i].run();
     }
-
+    
+    
     
     //Allow for initial instruction screen / pausing the game
     if(g.paused){
@@ -72,7 +77,7 @@ function draw() {
 
 // HELPER FUNCTIONS ---
 function bullets_removal(bullet_list){
-    //Removes if offscreen and if crashed
+    //Removes if offscreen or if crashed
     for(let i = bullet_list.length - 1; i >= 0; i--){
         if(bullet_list[i].location.x >= Canvas_Width || bullet_list[i].location.x <= 0
           || bullet_list[i].location.y <= 0 || bullet_list[i].location.y >= Canvas_Height || bullet_list[i].crashed){
@@ -81,11 +86,17 @@ function bullets_removal(bullet_list){
     }
 }
 
-function simple_enemy_crash_tower(s_enemy_list){
+
+function enemies_crashed_or_killed(s_enemy_list){
     for(let i = s_enemy_list.length - 1; i >= 0; i--){
         if(s_enemy_list[i].crashed){
             t.health -= s_enemy_list[i].dmg;
             s_enemy_list.splice(i, 1);
+        } else {
+            if(s_enemy_list[i].health <= 0){
+                s_enemy_list.splice(i, 1);
+            }
+            
         }
     }
 }

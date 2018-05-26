@@ -11,7 +11,7 @@ class FlameThrowerBullets{
         this.lifespan = 255;
         this.evap_rate = 4;
         
-        this.dmg = 2;
+        this.dmg = 10;
 
     }
     
@@ -30,9 +30,20 @@ class FlameThrowerBullets{
         }
     }
     
-    run(){
+    check_enemy(enemy_list){
+        //if the distance between them is less than the distance of both their radius added together, they crashed
+        for(let i = enemy_list.length - 1; i >= 0; i--){
+            if(this.location.distance(enemy_list[i].location) < this.radius + enemy_list[i].radius){
+                this.crashed = true;
+                enemy_list[i].health -= this.dmg;
+            }
+        }
+    }
+    
+    run(enemy_list){
         this.update();
         this.show();
+        this.check_enemy(enemy_list);
     }
     
 }
