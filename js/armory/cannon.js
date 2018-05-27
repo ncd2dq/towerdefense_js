@@ -13,10 +13,17 @@ class Cannon{
     
     cannon_rotate(mouse_vec){
         //vec = Vector(mouseX, mouseY)
-        let pointer = mouse_vec.sub(this.location);
-        pointer = pointer.normalize().mult(this.cannon_length);
-        pointer = pointer.add(this.location);
-        this.facing = pointer;
+        if(!this.on_cool_down){
+            let pointer = mouse_vec.sub(this.location);
+            pointer = pointer.normalize().mult(this.cannon_length);
+            pointer = pointer.add(this.location);
+            this.facing = pointer;
+        } else {
+            let pointer = mouse_vec.sub(this.location);
+            pointer = pointer.normalize().mult(this.cannon_length * 2 / 3);
+            pointer = pointer.add(this.location);
+            this.facing = pointer;
+        }
     }
     
     fire(mouse_click_vec, bullets){
@@ -41,6 +48,7 @@ class Cannon{
         strokeWeight(5);
         line(this.location.x, this.location.y, this.facing.x, this.facing.y);
         strokeWeight(1);
+        
     }
     
     cool_down(){

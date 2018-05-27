@@ -55,7 +55,7 @@ function draw() {
     g.run(t.weapons);
     
     //Controll enemy spawning
-    wave.run(f_enemies);
+    wave.run(f_enemies, g);
     
     frameRate(FPS);
     //Testing code

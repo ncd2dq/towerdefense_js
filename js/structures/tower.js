@@ -25,7 +25,7 @@ class Tower{
         let ft = new FlameThrower(this.location, this.radius);
         let mg = new MachineGun(this.location, this.radius);
         
-        return [c, ft, mg];
+        return [mg, c, ft];
     }
     
     fire(mouse_click_vec, bullets){
@@ -47,8 +47,8 @@ class Tower{
         this.show();
         this.current_weapon.run(mouse_vec);
         
-        this.weapons[0].cool_down();
         this.weapons[1].cool_down();
+        this.weapons[2].cool_down();
     }
     
 }
