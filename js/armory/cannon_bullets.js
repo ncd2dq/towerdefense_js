@@ -10,7 +10,7 @@ class CannonBullets{
     }
     
     show(){
-        fill(0,0,0);
+        fill(black);
         ellipse(this.location.x, this.location.y, this.radius * 2, this.radius * 2); //drawn from center
     }
     

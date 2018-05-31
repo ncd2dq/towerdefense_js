@@ -65,7 +65,7 @@ class MachineGun{
     
     show(){
         //Base
-        fill(0, 120, 255);
+        fill(machine_gun_base_color);
         ellipse(this.location_center.x, this.location_center.y, this.base_radi, this.base_radi);
         
         strokeWeight(3);

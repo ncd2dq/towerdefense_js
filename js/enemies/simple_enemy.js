@@ -25,7 +25,7 @@ class SimpleEnemy{
     }
     
     show(){
-        fill(100,25,100);
+        fill(simple_enemy_color);
         ellipse(this.location.x, this.location.y, this.radius, this.radius);
     }
     

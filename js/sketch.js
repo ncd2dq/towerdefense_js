@@ -1,5 +1,23 @@
+let background_color;
+let cannon_color;
+let black;
+let flame_thrower_color;
+let machine_gun_base_color;
+let tower_color;
+let simple_enemy_color;
+
+
+
+
 function setup() {
     createCanvas(Canvas_Width, Canvas_Height);
+    background_color = color(100, 100, 125);
+    cannon_color = color(0, 255, 0);
+    black = color(0, 0, 0);
+    flame_thrower_color = color(100, 0, 0);
+    machine_gun_base_color = color(0, 120, 255);
+    tower_color = color(255, 0, 0);
+    simple_enemy_color = color(100,25,100);
 }
 
 let Canvas_Width = 1200;
@@ -23,7 +41,7 @@ let p = new Flock();
 let obstacles = [];
 
 function draw() {
-    background(100, 100, 125);
+    background(background_color);
     if (initial_spwn){
         for(let i = 0; i < 25; i++){
             f_enemies.push(new SimpleEnemy(t));
@@ -147,7 +165,9 @@ function mouseReleased(){
 }
 
 
-/*function mouseDragged(){
+/*
+function mouseDragged(){
     console.log(mouseX, mouseY);
     t.fire(new Vector(mouseX, mouseY), bullets);
-}*/
+}
+*/

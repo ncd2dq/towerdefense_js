@@ -6,10 +6,10 @@ class FlameThrower{
         this.ready = true;
         this.facing = new Vector(0.5, -0.5);
         this.flame_thrower_length = 50;
-        this.bullet_batch = 4;
+        this.bullet_batch = 4; //4
         
         this.frame_count = 0;
-        this.fired_max = 5;
+        this.fired_max = 5; //5
         this.fired = 0;
         this.cool_down_standard = 2;
         this.cool_down_time = 0;
@@ -61,7 +61,7 @@ class FlameThrower{
     
     
     show(){
-        fill(100, 0, 0);
+        fill(flame_thrower_color);
         
         //draws from the center point
         //base unit of flame_thrower
@@ -76,7 +76,7 @@ class FlameThrower{
         
         //tip of flamethrower
         strokeWeight(0);
-        fill(100, 0, 0);
+        fill(flame_thrower_color);
         ellipse(this.facing.x, this.facing.y, 10, 10)
         strokeWeight(1);
     }

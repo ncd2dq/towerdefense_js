@@ -38,7 +38,7 @@ class Cannon{
     
     
     show(){
-        fill(0, 255, 0);
+        fill(cannon_color);
         
         //draws from the center point
         //base unit of cannon

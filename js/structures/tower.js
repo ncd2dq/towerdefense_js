@@ -15,7 +15,7 @@ class Tower{
     }
     
     show(){
-        fill(255, 0, 0);
+        fill(tower_color);
         rect(this.location.x, this.location.y, this.radius, this.radius);
         
     }
