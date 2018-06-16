@@ -1,7 +1,7 @@
 //This file provides all the game logic for sending waves at the tower
 class WaveController{
     constructor(){
-        this.wave = 0;
+        this.wave = 1;
         this.max_waves = 5;
         this.initial_enemies = 5;
         this.next_wave_count = this.initial_enemies;
@@ -63,6 +63,8 @@ class WaveController{
                 
                 for(let i = 0; i < this.next_wave_count; i ++){
                     enemy_list.push(new SimpleEnemy(t));
+                    //TESTING
+                    enemy_list.push(new Bomber(t));
                 }
                 
                 this.count = 0;

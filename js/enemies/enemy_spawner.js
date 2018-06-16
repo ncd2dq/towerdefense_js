@@ -20,3 +20,13 @@ function determine_spwn_direction(spwn_x, spwn_y, tower_class){
     
     return dir_new;
 }
+
+function bomber_spawn(canvas_w, canvas_h){
+    //Goal of this function is to return the initial Vector(x, y) of the bomber vechile
+    let spawn_x = random(canvas_w, canvas_w * 1.5);
+    let spawn_y = random(0, canvas_h * (1 / 4));
+    
+    let gravity = new Vector(0, random(0.0055, 0.1));
+    console.log(gravity.y)
+    return [new Vector(spawn_x, spawn_y), new Vector(-1, 0), gravity];
+}

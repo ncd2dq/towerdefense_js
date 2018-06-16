@@ -5,7 +5,7 @@ let flame_thrower_color;
 let machine_gun_base_color;
 let tower_color;
 let simple_enemy_color;
-
+let bomber_enemy_color;
 
 
 
@@ -18,6 +18,7 @@ function setup() {
     machine_gun_base_color = color(0, 120, 255);
     tower_color = color(255, 0, 0);
     simple_enemy_color = color(100,25,100);
+    bomber_enemy_color = color(255, 100, 255);
 }
 
 let Canvas_Width = 1200;
@@ -43,8 +44,9 @@ let obstacles = [];
 function draw() {
     background(background_color);
     if (initial_spwn){
-        for(let i = 0; i < 25; i++){
+        for(let i = 0; i < 1; i++){
             f_enemies.push(new SimpleEnemy(t));
+            f_enemies.push(new Bomber(t));
         }
         initial_spwn = false;
     }
@@ -80,7 +82,7 @@ function draw() {
     p.run(m, obstacles);
     
     for(let i = 0; i < f_enemies.length; i++){
-        f_enemies[i].run();
+        f_enemies[i].run(f_enemies);
     }
     
     

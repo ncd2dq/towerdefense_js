@@ -6,7 +6,7 @@ class CannonBullets{
         this.speed = 15;
         this.crashed = false;
         
-        this.dmg = 12;
+        this.dmg = 25;
     }
     
     show(){
